@@ -1,5 +1,6 @@
 
+cx-Oracle
 pandas
-sqlalchemy
 pymysql
+sqlalchemy
 

@@ -1,0 +1,8 @@
+
+# Note: this file stores config variables
+DB_USER = 'CHANGE_ME'
+DB_PASS = 'CHANGE_ME'
+
+DB_HOST = 'oracle.cise.ufl.edu'
+DB_PORT = '1521'
+DB_SID = 'orcl'
