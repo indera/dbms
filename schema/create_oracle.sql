@@ -1,6 +1,8 @@
 
 DROP TABLE account;
-DROP TABLE account;
+DROP TABLE account_order;
+DROP TABLE district;
+
 
 CREATE TABLE account (
     account_id number NOT NULL,
