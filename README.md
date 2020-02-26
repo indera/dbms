@@ -21,6 +21,14 @@ This repository stores code developed for the Spring 2020 DBMS class @ Universit
     - create pull request
 
 
+## Git ssh key
+
+https://help.github.com/en/github/authenticating-to-github/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent
+
+    $ eval "$(ssh-agent -s)"
+    $ ssh-add -K ~/.ssh/id_rsa
+
+
 # Setup
 
 - install python --> see https://realpython.com/installing-python/

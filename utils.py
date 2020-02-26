@@ -14,6 +14,7 @@ logging.basicConfig(filename='berka.log', level=logging.INFO, format='%(asctime)
 log = logging.getLogger(__name__)
 
 NROWS = None
+CHUNK_SIZE = 200
 
 def get_connection_mysql():
     # not used
@@ -32,7 +33,12 @@ def get_connection_oracle():
     dsn = "oracle+cx_oracle://{}:{}@{}/{}".format(DB_USER, DB_PASS, DB_HOST, DB_SID)
 
     try:
-        conn = create_engine(dsn, max_identifier_length=128)
+        # https://github.com/pandas-dev/pandas/issues/8953
+        conn = create_engine(dsn,
+                             max_identifier_length=128,
+                             pool_size=10,
+                             max_overflow=5,
+                             pool_recycle=3600)
         return conn
     except Exception as exc:
         log.error('Failed to create db connection due: {}'.format(exc))
@@ -72,7 +78,7 @@ def load_account(conn, filename):
     df['frequency'].replace({'POPLATEK PO OBRATU': 'AT'}, inplace=True)
 
     log.info('Starting data import for: {} ({} rows)'.format(filename, len(df)))
-    df.to_sql('account', con=conn, if_exists='append', index=False)
+    df.to_sql('account', con=conn, if_exists='append', index=False, chunksize=CHUNK_SIZE)
     log.info('Finished data import for: {}'.format(filename))
 
     data = conn.execute("SELECT * FROM account WHERE ROWNUM <= 10").fetchall()
