@@ -98,4 +98,5 @@ def load_order(conn, filename):
 def load_data(conn):
     log.info('load_data...')
     load_account(conn, 'data/account.asc')
+     load_order(conn, 'data/order.asc')
     # load_order(conn, 'data/order.asc')
