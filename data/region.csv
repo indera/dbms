@@ -1,0 +1,15 @@
+ID,Region,Capital,Population,Area,GDP,Website
+1,Prague,Prague,1272690,496.10,637704,https://en.wikipedia.org/wiki/Prague
+2,Central Bohemia,Prague,1274633,11014.97,288888,https://en.wikipedia.org/wiki/Central_Bohemian_Region
+3,South Bohemia,Ceske Budejovice,637460,10056.79,150970,https://en.wikipedia.org/wiki/South_Bohemian_Region
+4,Vysocina,Jihlava,512727,6795.56,121318,https://en.wikipedia.org/wiki/Vyso%C4%8Dina_Region
+5,Plzen,Plzen,574694,7560.93,137911,https://en.wikipedia.org/wiki/Plze%C5%88_Region
+6,Karlovy Vary,Karlovy Vary,310245,3314.46,65789,https://en.wikipedia.org/wiki/Karlovy_Vary_Region
+7,Usti nad Labem,Usti nad Labem,830371,5334.52,188041,https://en.wikipedia.org/wiki/%C3%9Ast%C3%AD_nad_Labem_Region
+8,Liberec,Liberec,439262,3162.93,94451,https://en.wikipedia.org/wiki/Liberec_Region
+9,Hradec Kralove,Hradec Kralove,555683,4758.54,133767,https://en.wikipedia.org/wiki/Hradec_Kr%C3%A1lov%C3%A9_Region
+10,Pardubice,Pardubice,505285,4519.00,116639,https://en.wikipedia.org/wiki/Pardubice_Region
+11,Olomouc,Olomouc,639946,5266.57,134376,https://en.wikipedia.org/wiki/Olomouc_Region
+12,Moravia-Silesia,Ostrava,1236028,5426.83,280210,https://en.wikipedia.org/wiki/Moravian-Silesian_Region
+13,South Moravia,Brno,1169788,7194.56,285855,https://en.wikipedia.org/wiki/South_Moravian_Region
+14,Zlin,Zlin,590459,3963.55,131789,https://en.wikipedia.org/wiki/Zl%C3%ADn_Region
