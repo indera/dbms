@@ -128,10 +128,11 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
+# custom
+.DS_Store
 berka.log
 data_berka.zip
 data/
-
 config/settings.py
 
 .idea/*

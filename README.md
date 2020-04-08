@@ -54,7 +54,7 @@ https://help.github.com/en/github/authenticating-to-github/generating-a-new-ssh-
 
     $ cp config/settings.py.template config/settings.py
 
-- run a simple test
+- run a simple test (creates table `student` and inserts/reads data)
 
     $ python test_oracle.py
 
