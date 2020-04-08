@@ -95,8 +95,19 @@ def load_order(conn, filename):
     log.info('Finished data import for: {}'.format(filename))
 
 
+def load_loan(conn, filename):
+    # TODO: Decide common DB platform account
+    df = pd.read_csv(filename, sep=';', low_memory=False, nrows=NROWS)
+    log.info("columns: {}".format(df.columns))
+
+    log.info('Starting data import for: {} ({} rows)'.format(filename, len(df)))
+    df.to_sql('loan', con=conn, if_exists='replace', index=False)
+    log.info('Finished data import for: {}'.format(filename))
+
+
+
 def load_data(conn):
     log.info('load_data...')
     load_account(conn, 'data/account.asc')
-     load_order(conn, 'data/order.asc')
-    # load_order(conn, 'data/order.asc')
+    load_order(conn, 'data/order.asc')
+    load_loan(conn, 'data/loan.asc')
