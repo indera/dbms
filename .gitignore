@@ -134,3 +134,5 @@ berka.log
 data_berka.zip
 data/
 config/settings.py
+
+.idea/*

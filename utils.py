@@ -403,6 +403,30 @@ FOREIGN KEY(account_id) REFERENCES account (account_id)
     log.info('Finished data import for: {}'.format(filename))
 
 
+def load_client(conn, filename):
+    df = pd.read_csv(filename, sep=';', low_memory=False, nrows=NROWS)
+    print("== {} df size: {}".format(filename, len(df)))
+
+    df.to_sql('client', con=conn, if_exists='append', index=False, dtype=dtype, chunksize=200)
+    log.info('Finished data import for: {}'.format(filename))
+
+def load_disposition(conn, filename):
+    df = pd.read_csv(filename, sep=';', low_memory=False, nrows=NROWS)
+    print("== {} df size: {}".format(filename, len(df)))
+
+    df.to_sql('disposition', con=conn, if_exists='append', index=False, dtype=dtype, chunksize=200)
+    log.info('Finished data import for: {}'.format(filename))
+
+def load_card(conn, filename):
+    df = pd.read_csv(filename, sep=';', low_memory=False, nrows=NROWS)
+    print("== {} df size: {}".format(filename, len(df)))
+
+    df.to_sql('card', con=conn, if_exists='append', index=False, dtype=dtype, chunksize=200)
+    log.info('Finished data import for: {}'.format(filename))
+
+
+
+
 def load_loan(conn, filename):
     """
 CREATE TABLE loan (
@@ -442,8 +466,17 @@ FOREIGN KEY(account_id) REFERENCES account (account_id)
     log.info('Finished data import for: {}'.format(filename))
 
 
+#def load_loan(conn, filename):
+#    df = pd.read_csv(filename, sep=';', low_memory=False, nrows=NROWS)
+#    log.info("columns: {}".format(df.columns))
+#
+#    log.info('Starting data import for: {} ({} rows)'.format(filename, len(df)))
+#    df.to_sql('loan', con=conn, if_exists='replace', index=False)
+#    log.info('Finished data import for: {}'.format(filename))
+
+
 def load_data(conn):
-    log.info('load_data...')
+    print(f'load_data according to this config: {LOAD_CONFIG}')
 
     for key, val in LOAD_CONFIG.items():
         if val and TABLE_REGION == key:
