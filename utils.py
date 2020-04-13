@@ -98,6 +98,8 @@ def load_order(conn, filename):
 def load_loan(conn, filename):
     # TODO: Decide common DB platform account
     df = pd.read_csv(filename, sep=';', low_memory=False, nrows=NROWS)
+    df['date'] = pd.to_datetime('19'+df['date'].astype(str), format='%Y%m%d').dt.strftime('%Y-%m-%d')
+
     log.info("columns: {}".format(df.columns))
 
     log.info('Starting data import for: {} ({} rows)'.format(filename, len(df)))
