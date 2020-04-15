@@ -26,7 +26,10 @@
 10. Heatmap of the transactions. This can be very useful if the bank is considering targeting certain parts of the country with mail offers.
 
 
+# Discussed queries
+
 1. Dimitrios 
+
 ```sql
 SELECT
     SUM(balance)
@@ -38,14 +41,18 @@ group by month gender
 2. not good
 
 3. Andrei - Display two lines for credit cards
-select TO_CHAR(issued, 'YYYY-MM'), count(*) from dmelisso.card group by TO_CHAR(issued, 'YYYY-MM') order by 1;
+
+```sql
+SELECT
+    TO_CHAR(issued, 'YYYY-MM'), count(*) from dmelisso.card group by TO_CHAR(issued, 'YYYY-MM') order by 1;
    cards -> disposition -> client -> birth 
  - cumulative - stack overflow https://data.stackexchange.com/stackoverflow/query/81416/cumulative-sum-with-group-by
  - diff in number of cards added: https://stackoverflow.com/questions/15762585/mysql-query-to-get-trend-of-temperature
+```
 
 4. Andrei - Loan -> Disposition -> Client.birth_number
 
-```
+```sql
 SELECT
     L.STATUS
     , TO_CHAR(START_DATE, 'YYYY-MM') AS theMonth
