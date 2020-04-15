@@ -23,7 +23,7 @@ FOREIGN KEY(region_id) REFERENCES region (region_id) INITIALLY DEFERRED DEFERRAB
 );
 
 CREATE TABLE district_detail(
-    district_id number NOT NULL, salary_average float NOT NULL,
+    district_id number NOT NULL,
     cities number NOT NULL,
     salary_average float NOT NULL,
     ratio_urban float NOT NULL,
@@ -46,7 +46,7 @@ FOREIGN KEY(district_id) REFERENCES district (district_id) INITIALLY DEFERRED DE
 CREATE TABLE district_history(
     district_id number NOT NULL,
     year number NOT NULL,
-    crimes number NOT NULL,
+    crimes number,
     ratio_unemployment number,
 UNIQUE (district_id, year),
 FOREIGN KEY(district_id) REFERENCES district (district_id) INITIALLY DEFERRED DEFERRABLE
