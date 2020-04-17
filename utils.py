@@ -73,6 +73,7 @@ def get_connection_mysql():
 def get_connection_oracle():
     # https://docs.sqlalchemy.org/en/13/dialects/oracle.html
     dsn = "oracle+cx_oracle://{}:{}@{}/{}".format(DB_USER, DB_PASS, DB_HOST, DB_SID)
+    print(f'Connecting to {DB_USER}@{DB_HOST}/{DB_SID}')
 
     try:
         # https://github.com/pandas-dev/pandas/issues/8953
