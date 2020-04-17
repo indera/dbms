@@ -3,4 +3,5 @@ cx-Oracle
 pandas
 pymysql
 sqlalchemy
-
+flask
+python-dotenv
