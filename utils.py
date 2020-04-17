@@ -47,15 +47,15 @@ TABLE_LOAN = 'loan'
 
 # change to 1 to process
 LOAD_CONFIG = {
-    TABLE_REGION: 0,
-    TABLE_DISTRICT: 0,
-    TABLE_ACCOUNT: 0,
-    TABLE_ORDER: 0,
-    TABLE_TRANSACTION: 1,
-    TABLE_CLIENT: 0,
-    TABLE_DISPOSITION: 0,
-    TABLE_CARD: 0,
-    TABLE_LOAN: 0,
+    TABLE_REGION: 1,
+    TABLE_DISTRICT: 1,
+    TABLE_ACCOUNT: 1,
+    TABLE_ORDER: 1,
+    TABLE_TRANSACTION: 0,
+    TABLE_CLIENT: 1,
+    TABLE_DISPOSITION: 1,
+    TABLE_CARD: 1,
+    TABLE_LOAN: 1,
 }
 
 def get_connection_mysql():
