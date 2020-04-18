@@ -28,10 +28,16 @@ export class LinechartQuery5Part4 extends Component {
                     dates.push(record.month_interval);
                     if (record.trans_amount_rank === 1) {
                         transNumHighAmount.push(record.trans_num);
+                        transNumMediumAmount.push(null);
+                        transNumLowAmount.push(null);
                     } else {
-                        if (record.trans_amount_rank === 2){
+                        if (record.trans_amount_rank === 2) {
+                            transNumHighAmount.push(null);
                             transNumMediumAmount.push(record.trans_num);
-                        }else{
+                            transNumLowAmount.push(null);
+                        } else {
+                            transNumHighAmount.push(null);
+                            transNumMediumAmount.push(null);
                             transNumLowAmount.push(record.trans_num);
                         }
 
@@ -46,7 +52,7 @@ export class LinechartQuery5Part4 extends Component {
                                 label: 'Large amount transaction trend',
                                 data: transNumHighAmount,
                                 fill: false,
-                                lineTension: 0.1,
+                                lineTension: 0.3,
                                 backgroundColor: "rgba(225,0,0,0.4)",
                                 borderColor: "red", // The main line color
                                 borderCapStyle: 'square',
@@ -68,7 +74,7 @@ export class LinechartQuery5Part4 extends Component {
                                 label: 'Medium amount transaction trend',
                                 data: transNumMediumAmount,
                                 fill: false,
-                                lineTension: 0.1,
+                                lineTension: 0.3,
                                 backgroundColor: "rgba(167,105,0,0.4)",
                                 borderColor: "rgb(167, 105, 0)",
                                 borderCapStyle: 'butt',
@@ -89,7 +95,7 @@ export class LinechartQuery5Part4 extends Component {
                                 label: 'Low amount transaction trend',
                                 data: transNumLowAmount,
                                 fill: false,
-                                lineTension: 0.1,
+                                lineTension: 0.3,
                                 backgroundColor: "rgba(105,167,0,0.4)",
                                 borderColor: "green",
                                 borderCapStyle: 'butt',

@@ -48,7 +48,7 @@ def getQuery1Details():
     ORDER BY
         gender,
         TO_CHAR(created_DATE, 'YYYY-MM')"""
-    jsonData = fetchDataInJson(sqlQueryStr, 200)
+    jsonData = fetchDataInJson(sqlQueryStr, 2000)
     return jsonData
 
 def getQuery2Details():
@@ -73,14 +73,14 @@ def getQuery5_1Details():
     SELECT count(trans_id) as TRANS_NUM, URBAN_RANK, MONTH_INTERVAL
     FROM (SELECT TRANS_ID,
              NTILE(2) OVER (ORDER BY RATIO_URBAN DESC)                                  AS URBAN_RANK,
-             EXTRACT(MONTH FROM CREATED_DATE) || '-' || EXTRACT(YEAR FROM CREATED_DATE) AS MONTH_INTERVAL
+             TO_DATE(EXTRACT(MONTH FROM CREATED_DATE) || '-' ||EXTRACT(YEAR FROM CREATED_DATE) ,'mm-yyyy') AS MONTH_INTERVAL
       FROM DMELISSO.TRANSACTIONS
                NATURAL JOIN DMELISSO.ACCOUNT
                NATURAL JOIN DMELISSO.DISPOSITION
                NATURAL JOIN DMELISSO.CLIENT
                NATURAL JOIN DMELISSO.DISTRICT_DETAIL) T
     group by MONTH_INTERVAL, URBAN_RANK ORDER BY MONTH_INTERVAL"""
-    jsonData = fetchDataInJson(sqlQueryStr, 200)
+    jsonData = fetchDataInJson(sqlQueryStr, 2000)
     return jsonData
 
 @app.route('/api/getTransTrendOfIncomeWiseGroupedDistricts')
@@ -89,14 +89,14 @@ def getQuery5_2Details():
     SELECT count(trans_id) as TRANS_NUM, INCOME_GROUP_RANK, MONTH_INTERVAL
     FROM (SELECT TRANS_ID,
                  NTILE(3) OVER (ORDER BY SALARY_AVERAGE DESC)                               AS INCOME_GROUP_RANK,
-                 EXTRACT(MONTH FROM CREATED_DATE) || '-' || EXTRACT(YEAR FROM CREATED_DATE) AS MONTH_INTERVAL
+                 TO_DATE(EXTRACT(MONTH FROM CREATED_DATE) || '-' ||EXTRACT(YEAR FROM CREATED_DATE) ,'mm-yyyy') AS MONTH_INTERVAL
           FROM DMELISSO.TRANSACTIONS
                    NATURAL JOIN DMELISSO.ACCOUNT
                    NATURAL JOIN DMELISSO.DISPOSITION
                    NATURAL JOIN DMELISSO.CLIENT
                    NATURAL JOIN DMELISSO.DISTRICT_DETAIL) T
     group by MONTH_INTERVAL, INCOME_GROUP_RANK  ORDER BY MONTH_INTERVAL"""
-    jsonData = fetchDataInJson(sqlQueryStr, 200)
+    jsonData = fetchDataInJson(sqlQueryStr, 2000)
     return jsonData
 
 @app.route('/api/getCardUsageTrendByType')
@@ -105,12 +105,12 @@ def getQuery5_3Details():
     SELECT count(trans_id) as TRANS_NUM, CARD_TYPE, MONTH_INTERVAL
     FROM (SELECT TRANS_ID,
                  C.TYPE                                                                     as card_type,
-                 EXTRACT(MONTH FROM CREATED_DATE) || '-' || EXTRACT(YEAR FROM CREATED_DATE) AS MONTH_INTERVAL
+                 TO_DATE(EXTRACT(MONTH FROM CREATED_DATE) || '-' ||EXTRACT(YEAR FROM CREATED_DATE) ,'mm-yyyy') AS MONTH_INTERVAL
           FROM DMELISSO.TRANSACTIONS T
                    JOIN DMELISSO.DISPOSITION D ON D.ACCOUNT_ID = T.ACCOUNT_ID
                    JOIN DMELISSO.CARD C ON D.DISP_ID = C.DISP_ID) T
     group by MONTH_INTERVAL, CARD_TYPE  ORDER BY MONTH_INTERVAL"""
-    jsonData = fetchDataInJson(sqlQueryStr)
+    jsonData = fetchDataInJson(sqlQueryStr, 1000)
     return jsonData
 
 
@@ -120,14 +120,14 @@ def getQuery5_4Details():
     SELECT count(trans_id) as TRANS_NUM, TRANS_AMOUNT_RANK, MONTH_INTERVAL
     FROM (SELECT TRANS_ID,
                  NTILE(3) OVER (ORDER BY AMOUNT DESC)                                       AS TRANS_AMOUNT_RANK,
-                 EXTRACT(MONTH FROM CREATED_DATE) || '-' || EXTRACT(YEAR FROM CREATED_DATE) AS MONTH_INTERVAL
+                 TO_DATE(EXTRACT(MONTH FROM CREATED_DATE) || '-' ||EXTRACT(YEAR FROM CREATED_DATE) ,'mm-yyyy') AS MONTH_INTERVAL
           FROM DMELISSO.TRANSACTIONS
                    NATURAL JOIN DMELISSO.ACCOUNT
                    NATURAL JOIN DMELISSO.DISPOSITION
                    NATURAL JOIN DMELISSO.CLIENT
                    NATURAL JOIN DMELISSO.DISTRICT_DETAIL) T
     group by MONTH_INTERVAL, TRANS_AMOUNT_RANK ORDER BY MONTH_INTERVAL"""
-    jsonData = fetchDataInJson(sqlQueryStr)
+    jsonData = fetchDataInJson(sqlQueryStr, 1000)
     return jsonData
 
 
@@ -137,7 +137,7 @@ def getQuery5_5Details():
     SELECT count(trans_id) as TRANS_NUM, ACCOUNT_BALANCE_RANK, MONTH_INTERVAL
     FROM (SELECT T.TRANS_ID,
                  ACCOUNT_BALANCE_RANK,
-                 EXTRACT(MONTH FROM T.CREATED_DATE) || '-' || EXTRACT(YEAR FROM T.CREATED_DATE) AS MONTH_INTERVAL
+                 TO_DATE(EXTRACT(MONTH FROM CREATED_DATE) || '-' ||EXTRACT(YEAR FROM CREATED_DATE) ,'mm-yyyy') AS MONTH_INTERVAL
           FROM (SELECT ACCOUNT_ID,
                        NTILE(3) OVER (ORDER BY AVG_ACCOUNT_BALANCE DESC) AS ACCOUNT_BALANCE_RANK
                 FROM (SELECT ACCOUNT_ID,
@@ -145,8 +145,8 @@ def getQuery5_5Details():
                       FROM DMELISSO.TRANSACTIONS
                       group by ACCOUNT_ID)) ACCOUNT_BALANCE_DETAILS
                    JOIN DMELISSO.TRANSACTIONS T ON ACCOUNT_BALANCE_DETAILS.ACCOUNT_ID = T.ACCOUNT_ID) E
-    GROUP BY MONTH_INTERVAL, ACCOUNT_BALANCE_RANK"""
-    jsonData = fetchDataInJson(sqlQueryStr)
+    GROUP BY MONTH_INTERVAL, ACCOUNT_BALANCE_RANK ORDER BY MONTH_INTERVAL"""
+    jsonData = fetchDataInJson(sqlQueryStr, 1000)
     return jsonData
 
 
