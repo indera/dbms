@@ -15,6 +15,21 @@ In the project directory, you can run:
 Runs the app in the development mode.<br />
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
+## TODO
+- Add launcher page [register, login, {links to query page, couple of extra visualization} ] : Srija
+- Develop line graphs for each identified queries [Each one of us develops implementation for couple of queries]
+- Corresponding backend APIs for timeline graphs
+
+
+## Tutorial blogs
+- https://codepen.io/k3no/pen/pbYGVa
+- https://dev.to/jack/organizing-your-react-app-into-modules-d6n
+- https://www.youtube.com/watch?v=hQAHSlTtcmY
+
+
+
+
+
 The page will reload if you make edits.<br />
 You will also see any lint errors in the console.
 
