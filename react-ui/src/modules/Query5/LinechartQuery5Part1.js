@@ -23,11 +23,15 @@ export class LinechartQuery5Part1 extends Component {
                 let dates = [];
                 let transNumUrban = [];
                 let transNumNonUrban = [];
+                //let xAxisCounter = 0;
                 records.forEach(record => {
+                    //xAxisCounter++;
                     dates.push(record.month_interval);
                     if (record.urban_rank === 1) {
                         transNumUrban.push(record.trans_num);
+                        transNumNonUrban.push(null);
                     } else {
+                        transNumUrban.push(null);
                         transNumNonUrban.push(record.trans_num);
                     }
                 });
@@ -40,7 +44,7 @@ export class LinechartQuery5Part1 extends Component {
                                 label: 'Urban area resident client transaction trend',
                                 data: transNumUrban,
                                 fill: false,
-                                lineTension: 0.1,
+                                lineTension: 0.3,
                                 backgroundColor: "rgba(225,0,0,0.4)",
                                 borderColor: "red", // The main line color
                                 borderCapStyle: 'square',
@@ -62,7 +66,7 @@ export class LinechartQuery5Part1 extends Component {
                                 label: 'Non-Urban area resident client transaction trend',
                                 data: transNumNonUrban,
                                 fill: false,
-                                lineTension: 0.1,
+                                lineTension: 0.3,
                                 backgroundColor: "rgba(167,105,0,0.4)",
                                 borderColor: "rgb(167, 105, 0)",
                                 borderCapStyle: 'butt',
