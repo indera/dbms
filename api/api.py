@@ -46,7 +46,6 @@ def getQuery1Details():
         gender,
         TO_CHAR(created_DATE, 'YYYY-MM')
     ORDER BY
-        gender,
         TO_CHAR(created_DATE, 'YYYY-MM')"""
     jsonData = fetchDataInJson(sqlQueryStr, 2000)
     return jsonData
