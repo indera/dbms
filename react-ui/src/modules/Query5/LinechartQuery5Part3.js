@@ -45,16 +45,10 @@ trans_num: 2
                     dates.push(record.month_interval);
                     if (record.card_type === 'classic') {
                         transNumClassic.push(record.trans_num);
-                        transNumGold.push(null);
-                        transNumJunior.push(null);
                     } else {
                         if (record.card_type === 'gold') {
-                            transNumClassic.push(null);
                             transNumGold.push(record.trans_num);
-                            transNumJunior.push(null);
                         } else {
-                            transNumClassic.push(null);
-                            transNumGold.push(null);
                             transNumJunior.push(record.trans_num);
                         }
 
@@ -69,7 +63,7 @@ trans_num: 2
                                 label: 'Classic type card holder transaction trend',
                                 data: transNumClassic,
                                 fill: false,
-                                lineTension: 0.3,
+                                lineTension: 0.1,
                                 backgroundColor: "rgba(225,0,0,0.4)",
                                 borderColor: "red", // The main line color
                                 borderCapStyle: 'square',
@@ -91,7 +85,7 @@ trans_num: 2
                                 label: 'Gold type card holder  transaction trend',
                                 data: transNumGold,
                                 fill: false,
-                                lineTension: 0.3,
+                                lineTension: 0.1,
                                 backgroundColor: "rgba(167,105,0,0.4)",
                                 borderColor: "rgb(167, 105, 0)",
                                 borderCapStyle: 'butt',
@@ -112,7 +106,7 @@ trans_num: 2
                                 label: 'Junior type card holder transaction trend',
                                 data: transNumJunior,
                                 fill: false,
-                                lineTension: 0.3,
+                                lineTension: 0.1,
                                 backgroundColor: "rgba(105,167,0,0.4)",
                                 borderColor: "green",
                                 borderCapStyle: 'butt',

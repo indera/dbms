@@ -20,9 +20,7 @@ export class LinechartQuery1 extends Component {
                     dates.push(record.month);
                     if (record.gender === 'F') {
                         sumOfBalanceF.push(record.sum_of_balance);
-                        sumOfBalanceM.push(null);
                     } else {
-                        sumOfBalanceF.push(null);
                         sumOfBalanceM.push(record.sum_of_balance);
                     }
                 });
@@ -33,10 +31,10 @@ export class LinechartQuery1 extends Component {
                         labels: dates,
                         datasets: [
                             {
-                                label: 'Female Client Account balance pattern',
+                                label: 'Account balance pattern for Female gender client',
                                 data: sumOfBalanceF,
                                 fill: false,
-                                lineTension: 0.3,
+                                lineTension: 0.1,
                                 backgroundColor: "rgba(225,0,0,0.4)",
                                 borderColor: "red", // The main line color
                                 borderCapStyle: 'square',
@@ -55,10 +53,10 @@ export class LinechartQuery1 extends Component {
                                 spanGaps: true,
 
                             }, {
-                                label: ' Male Client Account balance pattern',
+                                label: 'Account balance pattern for Male gender client',
                                 data: sumOfBalanceM,
                                 fill: false,
-                                lineTension: 0.3,
+                                lineTension: 0.1,
                                 backgroundColor: "rgba(167,105,0,0.4)",
                                 borderColor: "rgb(167, 105, 0)",
                                 borderCapStyle: 'butt',

@@ -28,16 +28,10 @@ export class LinechartQuery5Part5 extends Component {
                     dates.push(record.month_interval);
                     if (record.account_balance_rank === 1) {
                         transNumHighBalanceAccount.push(record.trans_num);
-                        transNumMediumBalanceAccount.push(null);
-                        transNumLowBalanceAccount.push(null);
                     } else {
                         if (record.account_balance_rank === 2){
-                            transNumHighBalanceAccount.push(null);
                             transNumMediumBalanceAccount.push(record.trans_num);
-                            transNumLowBalanceAccount.push(null);
                         }else{
-                            transNumHighBalanceAccount.push(null);
-                            transNumMediumBalanceAccount.push(null);
                             transNumLowBalanceAccount.push(record.trans_num);
                         }
 
@@ -52,7 +46,7 @@ export class LinechartQuery5Part5 extends Component {
                                 label: 'High balance account holding client transaction trend',
                                 data: transNumHighBalanceAccount,
                                 fill: false,
-                                lineTension: 0.3,
+                                lineTension: 0.1,
                                 backgroundColor: "rgba(225,0,0,0.4)",
                                 borderColor: "red", // The main line color
                                 borderCapStyle: 'square',
@@ -74,7 +68,7 @@ export class LinechartQuery5Part5 extends Component {
                                 label: 'Medium balance account holding client transaction trend',
                                 data: transNumMediumBalanceAccount,
                                 fill: false,
-                                lineTension: 0.3,
+                                lineTension: 0.1,
                                 backgroundColor: "rgba(167,105,0,0.4)",
                                 borderColor: "rgb(167, 105, 0)",
                                 borderCapStyle: 'butt',
@@ -95,7 +89,7 @@ export class LinechartQuery5Part5 extends Component {
                                 label: 'Low balance account holding client transaction trend',
                                 data: transNumLowBalanceAccount,
                                 fill: false,
-                                lineTension: 0.3,
+                                lineTension: 0.1,
                                 backgroundColor: "rgba(105,167,0,0.4)",
                                 borderColor: "green",
                                 borderCapStyle: 'butt',

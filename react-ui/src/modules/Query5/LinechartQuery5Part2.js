@@ -28,16 +28,10 @@ export class LinechartQuery5Part2 extends Component {
                     dates.push(record.month_interval);
                     if (record.income_group_rank === 1) {
                         transNumHIG.push(record.trans_num);
-                        transNumMIG.push(null);
-                        transNumLIG.push(null);
                     } else {
                         if (record.income_group_rank === 2){
-                            transNumHIG.push(null);
                             transNumMIG.push(record.trans_num);
-                            transNumLIG.push(null);
                         }else{
-                            transNumHIG.push(null);
-                            transNumMIG.push(null);
                             transNumLIG.push(record.trans_num);
                         }
 
@@ -52,7 +46,7 @@ export class LinechartQuery5Part2 extends Component {
                                 label: 'High Income Group(HIG) client transaction trend',
                                 data: transNumHIG,
                                 fill: false,
-                                lineTension: 0.3,
+                                lineTension: 0.1,
                                 backgroundColor: "rgba(225,0,0,0.4)",
                                 borderColor: "red", // The main line color
                                 borderCapStyle: 'square',
@@ -74,7 +68,7 @@ export class LinechartQuery5Part2 extends Component {
                                 label: 'Medium Income Group(MIG) client transaction trend',
                                 data: transNumMIG,
                                 fill: false,
-                                lineTension: 0.3,
+                                lineTension: 0.1,
                                 backgroundColor: "rgba(167,105,0,0.4)",
                                 borderColor: "rgb(167, 105, 0)",
                                 borderCapStyle: 'butt',
@@ -95,7 +89,7 @@ export class LinechartQuery5Part2 extends Component {
                                 label: 'Low Income Group (LIG) client transaction trend',
                                 data: transNumLIG,
                                 fill: false,
-                                lineTension: 0.3,
+                                lineTension: 0.1,
                                 backgroundColor: "rgba(105,167,0,0.4)",
                                 borderColor: "green",
                                 borderCapStyle: 'butt',

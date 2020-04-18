@@ -7,12 +7,24 @@ import LinechartQuery5Part5 from "./LinechartQuery5Part5";
 
 const TransactionDerivation = () => (
     <>
-        <div>Transaction based timelines Module</div>
-        <LinechartQuery5Part1/>
-        <LinechartQuery5Part2/>
-        <LinechartQuery5Part3/>
-        <LinechartQuery5Part4/>
-        <LinechartQuery5Part5/>
+        <p>
+            <div>Transaction based timelines Module</div>
+        </p>
+        <p>
+            <LinechartQuery5Part1/>
+        </p>
+        <p>
+            <LinechartQuery5Part2/>
+        </p>
+        <p>
+            <LinechartQuery5Part3/>
+        </p>
+        <p>
+            <LinechartQuery5Part4/>
+        </p>
+        <p>
+            <LinechartQuery5Part5/>
+        </p>
     </>
 );
 
