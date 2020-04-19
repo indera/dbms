@@ -59,6 +59,11 @@ https://help.github.com/en/github/authenticating-to-github/generating-a-new-ssh-
     $ python test_oracle.py
 
 
+# Run Flask App to provide API service
+    
+    cd api && flask run --no-debugger
+    
+
 # Sqlalchemy info
 
     https://docs.sqlalchemy.org/en/13/dialects/oracle.html
