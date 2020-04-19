@@ -1,28 +1,40 @@
 import React from 'react';
 import './App.css';
-import Linecharts from './Linechart'
-import LinechartQuery1 from "./LinechartQuery1";
-import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
+
+import { BrowserRouter as Router } from 'react-router-dom';
+import { Form, FormGroup, Input }
+  from 'reactstrap';
+
 
 
 function App() {
   return (
     <div className="App">
       <Router>
-      {/*<div class="col-sm-2">*/}
-              <Link to={'/Linecharts'} className="nav-link btn btn-info">Line Chart</Link>
-      {/*</div>*/}
-      <div className="container">
-          <Switch>
-            <Route path='/Linecharts' component={Linecharts} />
-          </Switch>
-        </div>
-          <div className="container">
-              <Switch>
-                  <Route path='/LinechartQuery1' component={LinechartQuery1} />
-              </Switch>
+        <Form className="Login">
+          <br></br>
+          <h1>
+            <span className="font-weight-bold ">Bank of Czech Republic</span>
+          </h1><br></br><br></br>
+          <h2 className="text-center margin-bottom: 15px">Welcome</h2>
+          <FormGroup><br></br>
+            <label className="text-left  max-width: 300px">Email ID</label>
+            <Input type="Email" placeholder="Email" />
+          </FormGroup>
+          <FormGroup>
+            <label className="text-left">Password</label>
+            <Input type="Password" placeholder="Password" />
+          </FormGroup>
+          <a href="#" class="btn-lg btn-dark btn-block text-center" role="button" aria-pressed="true">Login</a>
+          <p className="forgot-Username text-left forgot-password text-right">
+            Forgot <a href="#">password?</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          Forgot <a href="#">Username?</a>
+          </p>
+          <div className="text-center">
+            <a href="/sign-up">Sign up</a>
           </div>
-        </Router>
+        </Form>
+      </Router>
     </div>
   );
 }
