@@ -1,5 +1,11 @@
 
-# Create app
+# Setup & Run
+
+    yarn install
+    yarn start
+
+
+# Creating the app
 
     $ brew install yarn
     $ yarn --version 
@@ -10,7 +16,7 @@
     $ yarn global add create-react-app
     $ create-react-app app --template typescript
 
-    # Success! Created app at /Volumes/dev/dbms/app/http/web/app
+    # Success! Created app at /Volumes/dev/dbms/app
     # Inside that directory, you can run several commands:
 
     #   yarn start
