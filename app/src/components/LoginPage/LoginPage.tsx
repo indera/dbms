@@ -3,7 +3,7 @@ import { Form, Input, Button } from "antd";
 import React from "react";
 import { AppUser } from "../../App";
 
-interface LoginPageState {
+interface PageState {
   hasError: boolean;
   error: string | null;
 }
@@ -12,8 +12,8 @@ interface PageProps {
   loginAppUser: (user: AppUser) => void;
 }
 
-class LoginPage extends Component<PageProps, LoginPageState> {
-  public state: Readonly<LoginPageState> = {
+class LoginPage extends Component<PageProps, PageState> {
+  public state: Readonly<PageState> = {
     hasError: false,
     error: null,
   };

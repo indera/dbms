@@ -8,78 +8,77 @@ import HighchartsReact from "highcharts-react-official";
 import { defaultFetchData } from "./TableStats";
 import { sleep } from "../../App";
 import moment from "moment";
-import { Gender } from "./DataPage";
 
-// https://jsfiddle.net/avdzjkpf/
-// https://forum.fusioncharts.com/topic/21184-no-data-to-display/
-// month, gender, sum_balance
-// const prepareDataFusionCharts = (
-//   data: { month: string; gender: Gender; sum_balance: number }[]
-// ) => {
-//   const labels = data.map((ele) => {
-//     return {
-//       label: moment(ele.month).format("YYYY-MM"),
-//     };
-//   });
-//   const femaleData = data
-//     .filter((ele) => {
-//       return ele.gender === "F";
-//     })
-//     .map((ele) => {
-//       return {
-//         value: String(ele.sum_balance),
-//       };
-//     });
-//   const maleData = data
-//     .filter((ele) => {
-//       return ele.gender === "M";
-//     })
-//     .map((ele) => {
-//       return {
-//         value: String(ele.sum_balance),
-//       };
-//     });
-
-//   return {
-//     categories: [{ category: labels }],
-//     dataset: [
-//       { seriesname: "female", data: femaleData },
-//       { seriesname: "male", data: maleData },
-//     ],
-//   };
-// };
-
-// month, gender, sum_balance
+type AgeGroup = "g0-30" | "g30-60" | "g60";
+// X.AGE_GROUP, X.MONTH, Y.AVG_PAYMENTS, Y.NUM_LOANS
+// https://jsfiddle.net/gh/get/jquery/1.7.2/highslide-software/highcharts.com/tree/master/samples/highcharts/demo/line-labels/
 const prepareData = (
-  data: { month: string; gender: Gender; sum_balance: number }[]
+  data: {
+    month: string;
+    age_group: AgeGroup;
+    avg_payments: number;
+    num_loans: number;
+  }[]
 ) => {
   const categories = data.map((ele) => {
     return moment(ele.month).format("YYYY-MM");
   });
-  const femaleData = data
+  const g60LoanPayments = data
     .filter((ele) => {
-      return ele.gender === "F";
+      return ele.age_group === "g60";
     })
     .map((ele) => {
-      return ele.sum_balance;
+      return ele.avg_payments;
     });
-  const maleData = data
+  const g60LoanCount = data
     .filter((ele) => {
-      return ele.gender === "M";
+      return ele.age_group === "g60";
     })
     .map((ele) => {
-      return ele.sum_balance;
+      return ele.num_loans;
     });
 
+  const g30LoanPayments = data
+    .filter((ele) => {
+      return ele.age_group === "g30-60";
+    })
+    .map((ele) => {
+      return ele.avg_payments;
+    });
+  const g30LoanCount = data
+    .filter((ele) => {
+      return ele.age_group === "g30-60";
+    })
+    .map((ele) => {
+      return ele.num_loans;
+    });
+  const g0LoanPayments = data
+    .filter((ele) => {
+      return ele.age_group === "g0-30";
+    })
+    .map((ele) => {
+      return ele.avg_payments;
+    });
+  const g0LoanCount = data
+    .filter((ele) => {
+      return ele.age_group === "g0-30";
+    })
+    .map((ele) => {
+      return ele.num_loans;
+    });
   return {
     categories,
-    femaleData,
-    maleData,
+    g60LoanPayments,
+    g60LoanCount,
+    g30LoanPayments,
+    g30LoanCount,
+    g0LoanPayments,
+    g0LoanCount,
   };
 };
 
-const Trend1: React.FC = () => {
-  const url = "/api/getSumTransBalanceMonthByGenderV2";
+const Trend4: React.FC = () => {
+  const url = "/api/getLoanAvgCountForAgeGroups";
   const [data, setData] = useState(defaultFetchData);
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
@@ -123,33 +122,37 @@ const Trend1: React.FC = () => {
     },
     yAxis: {
       title: {
-        text: "Transaction Balance in Kč",
+        text: "Loan amounts/counts",
       },
       plotLines: [
         { value: 0, width: 1, color: "#88bb88" },
-        { value: 1, width: 1, color: "#aa0000" },
+        { value: 1, width: 1, color: "#88bb88" },
+
+        { value: 2, width: 1, color: "#aa0000" },
+        { value: 3, width: 1, color: "#aa0000" },
+
+        { value: 4, width: 1, color: "#00bb00" },
+        { value: 5, width: 1, color: "#00bb00" },
       ],
     },
     series: [
       {
         type: "line",
-        name: "Female",
-        data: chartData.femaleData,
+        name: ">= 60yo (Kč)",
+        data: chartData.g60LoanPayments,
       },
       {
-        type: "line",
-        name: "Male",
-        data: chartData.maleData,
+        type: "bar",
+        name: ">= 60yo (#)",
+        data: chartData.g60LoanCount,
       },
     ],
   };
 
-  window.console.log("sql: ", data.sql);
   return (
     <>
       {isLoading && <Spin />}
       {isError && <h2>Something went wrong ...</h2>}
-      {/* {!isLoading && data && <ReactFC {...chartConfigs} />} */}
       {!isLoading && data && (
         <HighchartsReact highcharts={Highcharts} options={options} />
       )}
@@ -157,4 +160,4 @@ const Trend1: React.FC = () => {
   );
 };
 
-export default Trend1;
+export default Trend4;

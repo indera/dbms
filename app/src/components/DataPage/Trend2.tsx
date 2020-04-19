@@ -24,12 +24,11 @@ ReactFC.fcRoot(FusionCharts, Column2D, FusionTheme);
 
 const prepareData = (data: { month: string; num_rows: number }[]) => {
   const result = data.map((ele, index) => {
-    const row = {
+    return {
       // key: index,
-      label: moment(ele.month).format("YYYY-MM-DD"),
+      label: moment(ele.month).format("YYYY-MM"),
       value: ele.num_rows,
     };
-    return row;
   });
   return result;
 };
@@ -48,7 +47,7 @@ const Trend2: React.FC = () => {
         try {
           const result = await axios(url);
           window.console.log("got rows: ", result.data.rows);
-          await sleep(2000);
+          await sleep(1000);
           setData(result.data);
         } catch (error) {
           window.console.error("error: ", error);
@@ -85,35 +84,14 @@ const Trend2: React.FC = () => {
       },
       // Chart Data
       data: chartData,
-      // trendlines: [
-      //   {
-      //     line: [
-      //       {
-      //         startvalue: "10",
-      //         color: "#29C3BE",
-      //         displayvalue: "Average{br}monthly{br}",
-      //         valueOnRight: "1",
-      //         thickness: "2",
-      //       },
-      //     ],
-      //   },
-      // ],
     },
   };
 
-  // <Table
-  //   pagination={{
-  //     hideOnSinglePage: true,
-  //     pageSize: 20,
-  //   }}
-  //   columns={columns}
-  //   dataSource={prepareTableData(data.rows)}
-  // />
-
+  window.console.log("sql: ", data.sql);
   return (
     <>
       {isError && <h2>Something went wrong ...</h2>}
-      {isLoading && <Spin size={"large"} />}
+      {isLoading && <Spin />}
       {!isLoading && data && <ReactFC {...chartConfigs} />}
     </>
   );

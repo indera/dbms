@@ -29,9 +29,9 @@ def fetch_data(sql, description, num_rows=None, debug=False):
     start_time = time.time()
 
     if num_rows is None:
-        data = conn.execute(sql).fetchmany(num_rows)
+        data = conn.execute(sql).fetchall()
     else:
-        data = conn.execute(sql).fetchmany()
+        data = conn.execute(sql).fetchmany(num_rows)
 
     if debug:
         pprint(data)
