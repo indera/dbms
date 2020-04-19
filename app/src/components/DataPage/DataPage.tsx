@@ -3,7 +3,9 @@ import { AppUser } from "../../App";
 import { Layout } from "antd";
 import QueryMenu from "./QueryMenu";
 import TableStats from "./TableStats";
+import Trend1 from "./Trend1";
 import Trend2 from "./Trend2";
+// import Trend3 from "./Trend3";
 
 const { Sider, Content } = Layout;
 
@@ -26,13 +28,14 @@ class DataPage extends React.Component<DataPageProps, DataPageState> {
     if ("0" === selectedQuery) {
       return <TableStats />;
     }
-    if ("1" == selectedQuery) {
+    if ("1" === selectedQuery) {
       return <Trend1 />;
     }
     if ("2" === selectedQuery) {
       return <Trend2 />;
     }
 
+    // two or more lines: https://www.fusioncharts.com/charts/line-area-charts/line-chart-with-multiple-series?framework=react
     // if ("3" === selectedQuery) {
     //   return <Trend3 />;
     // }
