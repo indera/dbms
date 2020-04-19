@@ -136,3 +136,5 @@ data/
 config/settings.py
 
 .idea/*
+node_modules/*
+package-lock.json
