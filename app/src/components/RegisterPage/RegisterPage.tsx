@@ -1,27 +1,36 @@
 import { Component } from "react";
 import { Form, Input, Button } from "antd";
 import React from "react";
+import { AppUser } from "../../App";
 
-interface RegisterPageState {
+interface PageState {
   hasError: boolean;
   error: string | null;
 }
 
+interface PageProps {
+  loginAppUser: (user: AppUser) => void;
+}
 interface RegisterFormData {
   name: string | null;
   email: string | null;
   password: string | null;
 }
 
-class RegisterPage extends Component<{}, RegisterPageState> {
-  public state: Readonly<RegisterPageState> = {
+class RegisterPage extends Component<PageProps, PageState> {
+  public state: Readonly<PageState> = {
     hasError: false,
     error: null,
   };
 
   public render() {
-    const onFinish = (values: any) => {
-      console.log("Success:", values);
+    const onFinish = (data: any) => {
+      const { loginAppUser } = this.props;
+
+      if (data.email && data.password) {
+        console.log("Success:", data);
+        loginAppUser({ email: data.email, password: data.password });
+      }
     };
 
     const onFinishFailed = (errorInfo: any) => {

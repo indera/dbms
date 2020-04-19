@@ -2,74 +2,66 @@ import React from "react";
 import { AppUser } from "../../App";
 import { Layout } from "antd";
 import QueryMenu from "./QueryMenu";
-import DataSummary from "./DataSummary";
+import TableStats from "./TableStats";
+import Trend2 from "./Trend2";
 
 const { Sider, Content } = Layout;
 
 interface DataPageState {
-  selectedQuery: number;
+  selectedQuery: string;
 }
 
 interface DataPageProps {
   loginAppUser: (user: AppUser) => void;
 }
 
-interface Queries {
-  [key: number]: String;
-}
-
-const queries: Queries = {
-  0: "Total number of records",
-  1: "1. ", // TODO: add description
-  2: "2. ", // TODO: add description
-  3: "3. ", // TODO: add description
-  4: "4. ", // TODO: add description
-  5: "5. ", // TODO: add description
-  6: "6. ", // TODO: add description
-};
-
 class DataPage extends React.Component<DataPageProps, DataPageState> {
   public state: Readonly<DataPageState> = {
-    selectedQuery: 0,
+    selectedQuery: "0",
   };
 
-  public clickMenu = (evt: { key: number }) => {
-    window.console.log("clickMenu: ", evt.key);
-    this.setState({ selectedQuery: evt.key });
-  };
-
-  public getDataComponent = () => {
+  public getComponent = () => {
     const { selectedQuery } = this.state;
-    window.console.log("getDataComponent: ", selectedQuery);
 
-    if (0 === selectedQuery) {
-      return <DataSummary />;
+    if ("0" === selectedQuery) {
+      return <TableStats />;
     }
-    // if (1 === selectedQuery) {
-    //   return <DataQ1 />;
+    if ("1" == selectedQuery) {
+      return <Trend1 />;
+    }
+    if ("2" === selectedQuery) {
+      return <Trend2 />;
+    }
+
+    // if ("3" === selectedQuery) {
+    //   return <Trend3 />;
     // }
-    // if (2 === selectedQuery) {
-    //   return <DataQ2 />;
+    // if ("4" === selectedQuery) {
+    //   return <Trend4 />;
     // }
-    // if (3 === selectedQuery) {
-    //   return <DataQ3 />;
+    // if ("5" === selectedQuery) {
+    //   return <Trend5 />;
     // }
-    // if (4 === selectedQuery) {
-    //   return <DataQ4 />;
-    // }
-    // if (5 === selectedQuery) {
-    //   return <DataQ5 />;
-    // }
-    // if (6 === selectedQuery) {
-    //   return <DataQ6 />;
+    // if ("6" === selectedQuery) {
+    //   return <Trend6 />;
     // }
     return null;
   };
 
-  public render() {
-    const { selectedQuery } = this.state;
-    const description = queries[selectedQuery];
+  public clickMenu = (evt: { key: any }) => {
+    // this.forceUpdate();
+    window.console.log("clickMenu: ", evt.key);
+    this.setState(
+      {
+        selectedQuery: evt.key,
+      },
+      () => {
+        // window.console.log("after set state: ", this.state.selectedQuery);
+      }
+    );
+  };
 
+  public render() {
     return (
       <Layout>
         <Content>
@@ -77,10 +69,8 @@ class DataPage extends React.Component<DataPageProps, DataPageState> {
             <QueryMenu clickHandler={this.clickMenu} />
           </Sider>
         </Content>
-
         <Content>
-          <h2> Displaying data: {description}</h2>
-          {this.getDataComponent()}
+          <div>{this.getComponent()}</div>
         </Content>
       </Layout>
     );

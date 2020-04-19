@@ -9,10 +9,6 @@ interface QueryMenuProps {
 }
 
 class QueryMenu extends React.Component<QueryMenuProps> {
-  // public handleClick = (e: any) => {
-  //   console.log("click ", e);
-  // };
-
   public render() {
     const { clickHandler } = this.props;
 
@@ -29,7 +25,7 @@ class QueryMenu extends React.Component<QueryMenuProps> {
           title={
             <span>
               <AppstoreOutlined />
-              <span>Team 25 Queries</span>
+              <span>List of queries</span>
             </span>
           }
         >
