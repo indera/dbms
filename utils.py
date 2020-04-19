@@ -17,6 +17,7 @@ This script stores the helper functions
 #SQLTable._execute_insert = _execute_insert
 
 import pandas as pd
+import csv
 import numpy as np
 from sqlalchemy import create_engine
 from sqlalchemy import types as sqlt
@@ -47,15 +48,15 @@ TABLE_LOAN = 'loan'
 
 # change to 1 to process
 LOAD_CONFIG = {
-    TABLE_REGION: 1,
+    TABLE_REGION: 0,
     TABLE_DISTRICT: 1,
-    TABLE_ACCOUNT: 1,
-    TABLE_ORDER: 1,
-    TABLE_TRANSACTION: 0,
-    TABLE_CLIENT: 1,
-    TABLE_DISPOSITION: 1,
-    TABLE_CARD: 1,
-    TABLE_LOAN: 1,
+    TABLE_ACCOUNT: 0,
+    TABLE_ORDER: 0,
+    TABLE_TRANSACTION: 1,
+    TABLE_CLIENT: 0,
+    TABLE_DISPOSITION: 0,
+    TABLE_CARD: 0,
+    TABLE_LOAN: 0,
 }
 
 def get_connection_mysql():
@@ -107,7 +108,8 @@ def load_region(conn, filename):
     log.info('Starting data import for: {} ({} rows)'.format(filename, len(df)))
     log.info(f"columns: {df.columns}")
 
-    df.to_sql('region', con=conn, if_exists='append', index=False, chunksize=CHUNK_SIZE)
+    # df.to_sql('region', con=conn, if_exists='append', index=False, chunksize=CHUNK_SIZE)
+    df.to_csv('back_region.csv', index=False, quoting=csv.QUOTE_NONNUMERIC)
     log.info(f'Finished data import for: {filename}')
 
     data = conn.execute("SELECT * FROM region WHERE ROWNUM <= 20").fetchall()
@@ -181,9 +183,10 @@ a16: Number of crimes committed in 1996.
             'municipalities_10k',
             'municipalities_10k_above']]
 
-    df_distr.to_sql('district', con=conn, if_exists='append', index=False)
-    df_distr_detail.to_sql('district_detail', con=conn, if_exists='append', index=False)
-    df_distr_population.to_sql('district_population', con=conn, if_exists='append', index=False)
+    # df_distr.to_sql('district', con=conn, if_exists='append', index=False)
+    df_distr.to_csv('back_district.csv', index=False, quoting=csv.QUOTE_NONNUMERIC)
+    # df_distr_detail.to_sql('district_detail', con=conn, if_exists='append', index=False)
+    # df_distr_population.to_sql('district_population', con=conn, if_exists='append', index=False)
 
     # split district history for years 1995 and 1996
     df_h1 = df[['district_id', 'unempl_1995', 'crimes_1995']].copy()
