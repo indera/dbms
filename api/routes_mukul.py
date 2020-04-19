@@ -29,7 +29,7 @@ def getQuery1Details():
     sql = """
     SELECT
         TO_CHAR(t.created_DATE, 'YYYY-MM') AS Month,
-        c.gender
+        c.gender,
         SUM(t.balance) AS SUM_of_balance
     FROM
         dmelisso.client c
