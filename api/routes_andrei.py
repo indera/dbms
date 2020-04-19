@@ -23,7 +23,8 @@ UNION ALL SELECT 'DISPOSITION', COUNT(*) FROM dmelisso.DISPOSITION
 @app.route('/api/getNumCardsIssued/')
 @app.route('/api/getNumCardsIssued/<min_age>')
 @app.route('/api/getNumCardsIssued/<min_age>/<region_name>')
-def num_cards_issued(min_age=0, region_name=None):
+def card_stats(min_age=0, region_name=None):
+    # From q2
     description = "This query returns the number of cards issued. Filters: min_age, region_name"
     where_region = ''
 
@@ -51,3 +52,65 @@ ORDER BY
     1
     """
     return fetch_data(sql, description)
+
+
+@app.route('/api/getLoanAvgCountForAgeGroups')
+def loan_stats():
+    # From q3
+    description = """
+    This query returns the average loan monthy payment, and the number of loans issued
+    each month for different age groups"""
+
+    # Note: includes even the months without data
+    sql = """
+SELECT
+    X.AGE_GROUP, X.MONTH, Y.AVG_PAYMENTS, Y.NUM_LOANS FROM (
+                  SELECT *
+                  FROM (SELECT 'g60' AGE_GROUP FROM DUAL
+                        UNION ALL SELECT 'g30-60' FROM DUAL
+                        UNION ALL SELECT 'g0-30' FROM DUAL
+                      ) GRP
+                    CROSS JOIN
+                    (
+                           WITH t as (
+                               select date '1993-07-05' init, date '1998-12-08' final
+                               from dual
+                           )
+                           select to_char(add_months(trunc(init, 'mm'), level - 1), 'RRRR-MM') MONTH
+                           from t
+                           connect by level <= months_between(final, init) + 1
+                    )
+                  ORDER BY GRP.AGE_GROUP, MONTH
+              ) X
+    LEFT JOIN
+    (
+        -- average payments for age groups
+        SELECT CASE
+                   WHEN 1999 - EXTRACT(YEAR FROM BIRTH_NUMBER) >= 60 THEN 'g60'
+                   WHEN 1999 - EXTRACT(YEAR FROM BIRTH_NUMBER) >= 30 THEN 'g30-60'
+                   ELSE 'g0-30'
+            END                               AS AGE_GROUP
+             , TO_CHAR(START_DATE, 'YYYY-MM') AS LOAN_CREATED_MONTH
+             , AVG(PAYMENTS)                  AS AVG_PAYMENTS
+             , COUNT(*)                       AS NUM_LOANS
+             -- , AVG(AMOUNT)                    AS AVG_AMOUNT
+             -- , AVG(DURATION) AS AVG_DURATION
+        FROM dmelisso.LOAN L
+                 JOIN dmelisso.DISPOSITION D ON D.account_id = L.account_id
+                 JOIN dmelisso.CLIENT c ON c.client_id = d.client_id
+        WHERE
+          -- can filter by age at the time of data collection
+            1999 - EXTRACT(YEAR FROM BIRTH_NUMBER) > 10
+          AND D.TYPE = 'OWNER'
+        GROUP BY CASE
+                     WHEN 1999 - EXTRACT(YEAR FROM BIRTH_NUMBER) >= 60 THEN 'g60'
+                     WHEN 1999 - EXTRACT(YEAR FROM BIRTH_NUMBER) >= 30 THEN 'g30-60'
+                     ELSE 'g0-30'
+            END
+               , TO_CHAR(START_DATE, 'YYYY-MM')
+        ORDER BY 1, 2
+    ) Y ON Y.AGE_GROUP = X.AGE_GROUP AND Y.LOAN_CREATED_MONTH = X.MONTH
+ORDER BY X.AGE_GROUP, X.MONTH
+"""
+    return fetch_data(sql, description)
+

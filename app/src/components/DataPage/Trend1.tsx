@@ -34,35 +34,30 @@ const prepareData = (data: { month: string; num_rows: number }[]) => {
   return result;
 };
 
-const Trend2: React.FC = () => {
-  const url = "/api/getNumCardsIssued/";
+const Trend1: React.FC = () => {
+  // TODO:
+  const url = "/api/";
   const [data, setData] = useState(defaultFetchData);
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
 
-  useEffect(
-    () => {
-      const fetchData = async () => {
-        setIsError(false);
-        setIsLoading(true);
-        try {
-          const result = await axios(url);
-          window.console.log("got rows: ", result.data.rows);
-          await sleep(2000);
-          setData(result.data);
-        } catch (error) {
-          window.console.error("error: ", error);
-          setIsError(true);
-        }
-        setIsLoading(false);
-      };
-      fetchData();
-    },
-    // The second argument can be used to define all the variables (allocated in this array) on which the hook depends.
-    // If one of the variables changes, the hook runs again
-    // If the array with the variables is empty, the hook doesn't run when updating the component at all, because it doesn't have to watch any variables.
-    [setData]
-  );
+  useEffect(() => {
+    const fetchData = async () => {
+      setIsError(false);
+      setIsLoading(true);
+      try {
+        const result = await axios(url);
+        window.console.log("got rows: ", result.data.rows);
+        await sleep(2000);
+        setData(result.data);
+      } catch (error) {
+        window.console.error("error: ", error);
+        setIsError(true);
+      }
+      setIsLoading(false);
+    };
+    fetchData();
+  }, [setData]);
 
   const chartData = prepareData(data.rows);
 
@@ -79,36 +74,14 @@ const Trend2: React.FC = () => {
         caption: data.description, // Set the chart caption
         subCaption: "", // Set the chart subcaption
         xAxisName: "Month", // Set the x-axis name
-        yAxisName: "Bank Cards Issued", // Set the y-axis name
+        yAxisName: "Todo...", // Set the y-axis name
         numberSuffix: "",
         theme: "fusion", //Set the theme for your chart
       },
       // Chart Data
       data: chartData,
-      // trendlines: [
-      //   {
-      //     line: [
-      //       {
-      //         startvalue: "10",
-      //         color: "#29C3BE",
-      //         displayvalue: "Average{br}monthly{br}",
-      //         valueOnRight: "1",
-      //         thickness: "2",
-      //       },
-      //     ],
-      //   },
-      // ],
     },
   };
-
-  // <Table
-  //   pagination={{
-  //     hideOnSinglePage: true,
-  //     pageSize: 20,
-  //   }}
-  //   columns={columns}
-  //   dataSource={prepareTableData(data.rows)}
-  // />
 
   return (
     <>
@@ -119,4 +92,4 @@ const Trend2: React.FC = () => {
   );
 };
 
-export default Trend2;
+export default Trend1;
