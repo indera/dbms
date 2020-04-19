@@ -5,10 +5,12 @@ import QueryMenu from "./QueryMenu";
 import TableStats from "./TableStats";
 import Trend1 from "./Trend1";
 import Trend2 from "./Trend2";
-// import Trend3 from "./Trend3";
+import Trend3 from "./Trend3";
+import Trend4 from "./Trend4";
 
 const { Sider, Content } = Layout;
 
+export type Gender = "F" | "M";
 interface DataPageState {
   selectedQuery: string;
 }
@@ -36,12 +38,12 @@ class DataPage extends React.Component<DataPageProps, DataPageState> {
     }
 
     // two or more lines: https://www.fusioncharts.com/charts/line-area-charts/line-chart-with-multiple-series?framework=react
-    // if ("3" === selectedQuery) {
-    //   return <Trend3 />;
-    // }
-    // if ("4" === selectedQuery) {
-    //   return <Trend4 />;
-    // }
+    if ("3" === selectedQuery) {
+      return <Trend3 />;
+    }
+    if ("4" === selectedQuery) {
+      return <Trend4 />;
+    }
     // if ("5" === selectedQuery) {
     //   return <Trend5 />;
     // }

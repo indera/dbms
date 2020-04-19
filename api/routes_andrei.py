@@ -3,6 +3,7 @@ from api.dbutils import fetch_data
 
 @app.route('/api/tableStats')
 def table_stats():
+    # q0 - total number of records in each table
     description = "This query returns the number of rows in each table"
     sql = """
 SELECT           'ACCOUNT' table_name, COUNT(*) num_rows FROM dmelisso.ACCOUNT
@@ -18,6 +19,29 @@ UNION ALL SELECT 'CARD', COUNT(*) FROM dmelisso.CARD
 UNION ALL SELECT 'DISPOSITION', COUNT(*) FROM dmelisso.DISPOSITION
     """
     return fetch_data(sql, description)
+
+
+@app.route('/api/getSumTransBalanceMonthByGenderV2')
+def transaction_balance():
+    # From q1
+    description = "This query returns the sum of transaction balance by gender"
+    sql = """
+    SELECT
+        TO_CHAR(t.created_DATE, 'YYYY-MM') AS month,
+        c.gender,
+        SUM(t.balance) AS sum_balance
+    FROM
+        dmelisso.client c
+        JOIN dmelisso.disposition d ON c.client_id = d.client_id
+        JOIN dmelisso.transactions t ON t.account_id = d.account_id
+    GROUP BY
+        TO_CHAR(created_DATE, 'YYYY-MM'),
+        gender
+    ORDER BY
+        TO_CHAR(created_DATE, 'YYYY-MM')
+    """
+    json_data = fetch_data(sql, description)
+    return json_data
 
 
 @app.route('/api/getNumCardsIssued/')
@@ -113,4 +137,3 @@ SELECT
 ORDER BY X.AGE_GROUP, X.MONTH
 """
     return fetch_data(sql, description)
-
