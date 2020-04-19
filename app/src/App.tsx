@@ -5,7 +5,6 @@ import {
   // LaptopOutlined,
 } from "@ant-design/icons";
 
-import QueryMenu from "./components/DataPage/QueryMenu";
 import AppFooter from "./components/AppFooter/AppFooter";
 
 import "./App.css";
@@ -15,7 +14,7 @@ import LoginPage from "./components/LoginPage/LoginPage";
 import RegisterPage from "./components/RegisterPage/RegisterPage";
 import DataPage from "./components/DataPage/DataPage";
 
-const { Header, Footer, Sider, Content } = Layout;
+const { Header, Footer, Content } = Layout;
 
 type PageType = "about" | "login" | "logout" | "register" | "data";
 
@@ -23,6 +22,9 @@ export interface AppUser {
   email: string;
   password: string;
 }
+export const sleep = (ms: number) => {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+};
 
 interface AppState {
   currentPage: PageType;
@@ -129,7 +131,9 @@ class App extends Component<{}, AppState> {
                 <AboutPage loggedInUser={loggedInUser} />
               )}
 
-              {!loggedIn && currentPage === "register" && <RegisterPage />}
+              {!loggedIn && currentPage === "register" && (
+                <RegisterPage loginAppUser={this.loginAppUser} />
+              )}
 
               {!loggedIn && currentPage === "login" && (
                 <LoginPage loginAppUser={this.loginAppUser} />

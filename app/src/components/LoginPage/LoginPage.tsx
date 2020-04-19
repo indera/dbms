@@ -8,16 +8,11 @@ interface LoginPageState {
   error: string | null;
 }
 
-interface LoginPageProps {
+interface PageProps {
   loginAppUser: (user: AppUser) => void;
 }
 
-// interface LoginFormData {
-//   email: string | null;
-//   password: string | null;
-// }
-
-class LoginPage extends Component<LoginPageProps, LoginPageState> {
+class LoginPage extends Component<PageProps, LoginPageState> {
   public state: Readonly<LoginPageState> = {
     hasError: false,
     error: null,
@@ -27,7 +22,6 @@ class LoginPage extends Component<LoginPageProps, LoginPageState> {
     const onFinish = (data: any) => {
       const { loginAppUser } = this.props;
 
-      console.log("Success:", data);
       if (data.email && data.password) {
         console.log("Success:", data);
         loginAppUser({ email: data.email, password: data.password });
@@ -73,10 +67,6 @@ class LoginPage extends Component<LoginPageProps, LoginPageState> {
         >
           <Input.Password />
         </Form.Item>
-
-        {/* <Form.Item {...tailLayout} name="remember" valuePropName="checked">
-          <Checkbox>Remember me</Checkbox>
-        </Form.Item> */}
 
         <Form.Item {...tailLayout}>
           <Button type="primary" htmlType="submit">
