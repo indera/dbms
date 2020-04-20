@@ -76,6 +76,7 @@ const prepareLoanData = (
 
 const Trend6: React.FC = () => {
   const urlLoansByDistrict = "/api/getTotalAmountOfLoansPerDistrict";
+
   const urlCreditCardsIssuedByMonth =
     "/api/getTotalAmountOfCreditCardsIssuedPerMonth";
   const [dataLoansByDistrict, setDataLoansByDistrict] = useState(
@@ -147,11 +148,6 @@ const Trend6: React.FC = () => {
       series: {
         allowPointSelect: true,
         connectNulls: true,
-      },
-      line: {
-        // dataLabels: {
-        //   enabled: true,
-        // },
       },
     },
     yAxis: {

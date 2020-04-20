@@ -6,7 +6,7 @@ import TableStats from "./TableStats";
 import Trend1 from "./Trend1";
 import Trend2 from "./Trend2";
 import Trend3 from "./Trend3";
-import Trend4 from "./Trend4";
+import Trend4old from "./Trend4";
 import Trend5 from "./Trend5";
 import Trend6 from "./Trend6";
 
@@ -44,7 +44,7 @@ class DataPage extends React.Component<DataPageProps, DataPageState> {
       return <Trend3 />;
     }
     if ("4" === selectedQuery) {
-      return <Trend4 />;
+      return <Trend4old />;
     }
     if ("5" === selectedQuery) {
       return <Trend5 />;
