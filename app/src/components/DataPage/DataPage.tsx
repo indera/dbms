@@ -7,6 +7,7 @@ import Trend1 from "./Trend1";
 import Trend2 from "./Trend2";
 import Trend3 from "./Trend3";
 import Trend4 from "./Trend4";
+import Trend5 from "./Trend5";
 
 const { Sider, Content } = Layout;
 
@@ -44,9 +45,9 @@ class DataPage extends React.Component<DataPageProps, DataPageState> {
     if ("4" === selectedQuery) {
       return <Trend4 />;
     }
-    // if ("5" === selectedQuery) {
-    //   return <Trend5 />;
-    // }
+    if ("5" === selectedQuery) {
+      return <Trend5 />;
+    }
     // if ("6" === selectedQuery) {
     //   return <Trend6 />;
     // }
