@@ -75,7 +75,7 @@ const Trend2: React.FC = () => {
     dataSource: {
       // Chart Configuration
       chart: {
-        caption: data.description, // Set the chart caption
+        caption: `${data.description} (API endpoint: ${url})`, // Set the chart caption
         subCaption: "", // Set the chart subcaption
         xAxisName: "Month", // Set the x-axis name
         yAxisName: "Bank Cards Issued", // Set the y-axis name

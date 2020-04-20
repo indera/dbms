@@ -1,4 +1,4 @@
-import { Spin } from "antd";
+import { Spin, Divider } from "antd";
 import axios from "axios";
 import React, { useState, useEffect } from "react";
 
@@ -23,6 +23,7 @@ const prepareData = (
   const categories = data.map((ele) => {
     return moment(ele.month).format("YYYY-MM");
   });
+
   const g60LoanPayments = data
     .filter((ele) => {
       return ele.age_group === "g60";
@@ -66,6 +67,7 @@ const prepareData = (
     .map((ele) => {
       return ele.num_loans;
     });
+
   return {
     categories,
     g60LoanPayments,
@@ -103,58 +105,81 @@ const Trend4: React.FC = () => {
 
   const chartData = prepareData(data.rows);
 
-  const options: Highcharts.Options = {
-    title: {
-      text: data.description,
-    },
-    xAxis: {
-      categories: chartData.categories,
-    },
+  const optionsAmount: Highcharts.Options = {
+    title: { text: "Average loan amounts issued for different age categories" },
+    xAxis: { categories: chartData.categories },
     plotOptions: {
-      series: {
-        allowPointSelect: true,
-      },
-      line: {
-        // dataLabels: {
-        //   enabled: true,
-        // },
-      },
+      series: { allowPointSelect: true },
+      column: { dataLabels: { enabled: true } },
     },
     yAxis: {
-      title: {
-        text: "Loan amounts/counts",
-      },
+      title: { text: "Loan amounts" },
       plotLines: [
         { value: 0, width: 1, color: "#88bb88" },
-        { value: 1, width: 1, color: "#88bb88" },
-
-        { value: 2, width: 1, color: "#aa0000" },
-        { value: 3, width: 1, color: "#aa0000" },
-
-        { value: 4, width: 1, color: "#00bb00" },
-        { value: 5, width: 1, color: "#00bb00" },
+        { value: 1, width: 1, color: "#aa0000" },
+        { value: 2, width: 1, color: "#00bb00" },
       ],
     },
     series: [
+      { type: "column", name: ">= 60yo (Kč)", data: chartData.g60LoanPayments },
       {
-        type: "line",
-        name: ">= 60yo (Kč)",
-        data: chartData.g60LoanPayments,
+        type: "column",
+        name: "30-60 yo (Kč)",
+        data: chartData.g30LoanPayments,
       },
-      {
-        type: "bar",
-        name: ">= 60yo (#)",
-        data: chartData.g60LoanCount,
-      },
+      { type: "column", name: "0-30 yo (Kč)", data: chartData.g30LoanPayments },
     ],
   };
 
+  const legend: Highcharts.LegendOptions = {
+    layout: "vertical",
+    align: "left",
+    verticalAlign: "top",
+    x: 100,
+    y: 70,
+    floating: true,
+    borderWidth: 1,
+    backgroundColor: "#FFFFFF",
+  };
+  const plotOptions: Highcharts.PlotOptions = {
+    series: { allowPointSelect: true },
+    column: { dataLabels: { enabled: true } },
+  };
+
+  const optionsCount: Highcharts.Options = {
+    legend,
+    plotOptions,
+
+    title: { text: "Number of loans issued for different age categories" },
+    xAxis: { categories: chartData.categories },
+    yAxis: {
+      title: { text: "Loan counts" },
+      plotLines: [
+        { value: 0, width: 1, color: "#88bb88" },
+        { value: 1, width: 1, color: "#aa0000" },
+        { value: 2, width: 1, color: "#00bb00" },
+      ],
+    },
+    series: [
+      { type: "column", name: ">= 60yo (#)", data: chartData.g60LoanCount },
+      { type: "column", name: "30-60 yo (#)", data: chartData.g30LoanCount },
+      { type: "column", name: "0-30 yo (#)", data: chartData.g0LoanCount },
+    ],
+  };
+
+  window.console.log("sql: ", data.sql);
   return (
     <>
       {isLoading && <Spin />}
       {isError && <h2>Something went wrong ...</h2>}
       {!isLoading && data && (
-        <HighchartsReact highcharts={Highcharts} options={options} />
+        <HighchartsReact highcharts={Highcharts} options={optionsAmount} />
+      )}
+
+      <Divider />
+
+      {!isLoading && data && (
+        <HighchartsReact highcharts={Highcharts} options={optionsCount} />
       )}
     </>
   );

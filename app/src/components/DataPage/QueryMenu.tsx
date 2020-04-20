@@ -15,7 +15,7 @@ class QueryMenu extends React.Component<QueryMenuProps> {
     return (
       <Menu
         onClick={clickHandler}
-        style={{ width: 256 }}
+        style={{ width: 320 }}
         defaultSelectedKeys={["0"]}
         defaultOpenKeys={["sub1"]}
         mode="inline"
@@ -25,17 +25,17 @@ class QueryMenu extends React.Component<QueryMenuProps> {
           title={
             <span>
               <AppstoreOutlined />
-              <span>List of queries</span>
+              <span>List of visualisations</span>
             </span>
           }
         >
           <Menu.Item key="0">Total number of records</Menu.Item>
-          <Menu.Item key="1">Query 1</Menu.Item>
-          <Menu.Item key="2">Query 2</Menu.Item>
-          <Menu.Item key="3">Query 3</Menu.Item>
-          <Menu.Item key="4">Query 4</Menu.Item>
-          <Menu.Item key="5">Query 5</Menu.Item>
-          <Menu.Item key="6">Query 6</Menu.Item>
+          <Menu.Item key="1">1: Sum Transaction Balance by Gender</Menu.Item>
+          <Menu.Item key="2">2: Number of Cards Issues </Menu.Item>
+          <Menu.Item key="3">3: Average Loan Amounts</Menu.Item>
+          <Menu.Item key="4">4: Accounts Open by Disposition</Menu.Item>
+          <Menu.Item key="5">5: Transaction Trends</Menu.Item>
+          <Menu.Item key="6">6: Sum Loan Amount by District</Menu.Item>
         </SubMenu>
       </Menu>
     );

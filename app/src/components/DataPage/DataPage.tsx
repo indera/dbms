@@ -8,6 +8,7 @@ import Trend2 from "./Trend2";
 import Trend3 from "./Trend3";
 import Trend4 from "./Trend4";
 import Trend5 from "./Trend5";
+import Trend6 from "./Trend6";
 
 const { Sider, Content } = Layout;
 

@@ -49,7 +49,8 @@ def transaction_balance():
 @app.route('/api/getNumCardsIssued/<min_age>/<region_name>')
 def card_stats(min_age=0, region_name=None):
     # From q2
-    description = "This query returns the number of cards issued. Filters: min_age, region_name"
+    description = "This query returns the number of cards issued."
+    # subtitle = "Api data filters: min_age, region_name"
     where_region = ''
 
     if region_name is not None:

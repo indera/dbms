@@ -131,13 +131,26 @@ const Trend3: React.FC = () => {
     ],
   };
 
+  const legend: Highcharts.LegendOptions = {
+    layout: "vertical",
+    align: "left",
+    verticalAlign: "top",
+    x: 100,
+    y: 70,
+    floating: true,
+    borderWidth: 1,
+    backgroundColor: "#FFFFFF",
+  };
+  const plotOptions: Highcharts.PlotOptions = {
+    series: { allowPointSelect: true },
+    column: { dataLabels: { enabled: true } },
+  };
+
   const optionsCount: Highcharts.Options = {
+    legend,
+    plotOptions,
     title: { text: "Number of loans issued for different age categories" },
     xAxis: { categories: chartData.categories },
-    plotOptions: {
-      series: { allowPointSelect: true },
-      column: { dataLabels: { enabled: true } },
-    },
     yAxis: {
       title: { text: "Loan counts" },
       plotLines: [
@@ -145,6 +158,14 @@ const Trend3: React.FC = () => {
         { value: 1, width: 1, color: "#aa0000" },
         { value: 2, width: 1, color: "#00bb00" },
       ],
+    },
+    subtitle: {
+      text: "* Using 1999 as a reference year for determining the age",
+      align: "right",
+      verticalAlign: "bottom",
+    },
+    credits: {
+      enabled: false,
     },
     series: [
       { type: "column", name: ">= 60yo (#)", data: chartData.g60LoanCount },
