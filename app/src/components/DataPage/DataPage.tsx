@@ -48,9 +48,9 @@ class DataPage extends React.Component<DataPageProps, DataPageState> {
     if ("5" === selectedQuery) {
       return <Trend5 />;
     }
-    // if ("6" === selectedQuery) {
-    //   return <Trend6 />;
-    // }
+    if ("6" === selectedQuery) {
+      return <Trend6 />;
+    }
     return null;
   };
 
