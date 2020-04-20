@@ -68,6 +68,10 @@ https://help.github.com/en/github/authenticating-to-github/generating-a-new-ssh-
 
     https://docs.sqlalchemy.org/en/13/dialects/oracle.html
 
+## Oracle Instant client lib installation info
+
+    https://oracle.github.io/odpi/doc/installation.html
+
 
 # Import Czech Bank Financial Data (aka berka dataset)
 
