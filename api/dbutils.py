@@ -11,9 +11,9 @@ conn = utils.get_connection_oracle()
 
 def fetch_data_as_json(sql, num_rows=None, debug=False):
     if num_rows is None:
-        data = conn.execute(sql).fetchmany(num_rows)
-    else:
         data = conn.execute(sql).fetchmany()
+    else:
+        data = conn.execute(sql).fetchmany(num_rows)
 
     if debug:
         pprint(data)
