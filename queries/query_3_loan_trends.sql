@@ -24,10 +24,9 @@ ORDER BY
 -- Can add
 --      AVG(AMOUNT)
 --      AVG(DURATION)
-SELECT
-    X.AGE_GROUP, X.MONTH, Y.AVG_PAYMENTS, Y.NUM_LOANS FROM (
+SELECT X.*, Y.AVG_PAYMENTS, Y.NUM_LOANS FROM (
                   SELECT *
-                  FROM (SELECT 'g60' AGE_GROUP FROM DUAL
+                  FROM (select 'g60' AGE_GROUP FROM DUAL
                         UNION ALL SELECT 'g30-60' FROM DUAL
                         UNION ALL SELECT 'g0-30' FROM DUAL
                       ) GRP
